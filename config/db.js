@@ -14,7 +14,7 @@ const User = UserModel(sequelize, DataTypes)
 const connectDB = async()=>{
     try{
         await sequelize.authenticate()
-        console.log('La conexion se establecio correctamente :v' .bgCyan.rainbow)
+        console.log('La conexion se establecio correctamente :v' .bgBlue.white)
         
         //SELECCIONAR TODOS LOS USUARIOS:
         /*const users = await User.findAll();
@@ -30,5 +30,6 @@ const connectDB = async()=>{
     }
 }
 
+connectDB()
 //EJECUTAR LA FUNCION
 module.exports = connectDB
