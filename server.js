@@ -2,6 +2,8 @@ const express = require('express')
 const dotenv = require('dotenv')
 const colors = require('colors')
 
+//DEPENDENCIA CONEXION A LA DB
+const connectDB = require('./config/db')
 //DEPENDENCIAS A LAS RUTAS
 const bootcampRoutes = require('./routes/BootcampRoutes')
 const userRoutes = require('./routes/UserRoutes')
@@ -13,6 +15,9 @@ dotenv.config({
 
 //1. CREAR EL OBJETO QUE REPRESENTA EL SISTEMA QUE SE ESTA CREANDO
 const app = express()
+
+//EJEUCTAR LA CONEXION DE LA DB
+connectDB()
 
 //2. CREAR UNA RUTA DE PRUEBA
 /*app.get('/', (request, response)=>{
