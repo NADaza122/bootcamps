@@ -7,7 +7,7 @@ const router = express.Router()
 router.get('/' , (req, res) =>{
     res.status(200).json(
         {
-            "Buenos dias" : `se trae todos los bootcamps`
+            "Mensaje" : `se trae todos los bootcamps`
         }
     )
 })
@@ -16,7 +16,7 @@ router.get('/' , (req, res) =>{
 router.get('/:id' , (req, res)=>{
     res.status(200).json(
         {
-            "Buenos dias" :  `bootcamps cuyo ID es: ${req.params.id}`
+            "Mensaje" :  `bootcamps cuyo ID es: ${req.params.id}`
         }
     )
 })
@@ -25,7 +25,7 @@ router.get('/:id' , (req, res)=>{
 router.post('/', (req, res)=>{
     res.status(201).json(
         {
-            "Buenos dias" : `aqui se crea un nuevo bootcamp`
+            "Mensaje" : `aqui se crea un nuevo bootcamp`
         }
     )
 })
@@ -34,7 +34,7 @@ router.post('/', (req, res)=>{
 router.put('/:id' , (req, res)=>{
     res.status(200).json(
         {
-            "Buenos dias" : `actualizar el bootcamp: ${req.params.id}`
+            "Mensaje" : `actualizar el bootcamp: ${req.params.id}`
         }
     )
 })
@@ -43,7 +43,7 @@ router.put('/:id' , (req, res)=>{
 router.delete('/:id' , (req, res)=>{
     res.status(200).json(
         {
-            "Buenos dias" : `eliminar el bootcamp: ${req.params.id}`
+            "Mensaje" : `eliminar el bootcamp: ${req.params.id}`
         }
     )
 })
