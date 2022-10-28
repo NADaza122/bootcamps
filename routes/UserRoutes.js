@@ -1,7 +1,13 @@
 const express = require('express')
+const { getUsers, 
+        getSinleUser, 
+        postUser, 
+        putUser, 
+        deleteUser } = require('../controllers/UserController')
 
 const router = express.Router()
 
+/*
 //CREAR RUTAS ENDPOINTS URL 
 //get:obtender datos Read
 router.get('/' , (req, res) =>{
@@ -23,6 +29,7 @@ router.get('/:id' , (req, res)=>{
 
 //POST:  CREAR UN NUEVO RECURSO
 router.post('/', (req, res)=>{
+    console.log(req.body)
     res.status(201).json(
         {
             "!BIEVENIDO!" : `aqui se crea un nuevo user`
@@ -46,7 +53,17 @@ router.delete('/:id' , (req, res)=>{
             "!BIEVENIDO!" : `eliminar el user: ${req.params.id}`
         }
     )
-})
+})*/
+
+//RUTAS DE USUARIO
+router.route('/')
+            .get(getUsers)
+            .post(postUser)
+
+router.route('./:id')
+            .get(getSinleUser)
+            .put(putUser)
+            .delete(deleteUser)
 
 module.exports = router
 

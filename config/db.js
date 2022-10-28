@@ -1,13 +1,14 @@
 const colors = require('colors')
 const sequelize = require('./seq')
+
 //  DEPENDECIA PARA EL MODELO
-const UserModel = require('../models/user')
+/*const UserModel = require('../models/user')
 //DEPENDECIA DATATYPES
 const {DataTypes} = require('sequelize')
 
 
 //CREAR EL MODELO
-const User = UserModel(sequelize, DataTypes)
+const User = UserModel(sequelize, DataTypes)*/
 
 
 //CREAR LA FUNCION ASYNCRONA PARA LA CONEXION
@@ -30,6 +31,6 @@ const connectDB = async()=>{
     }
 }
 
-connectDB()
+//connectDB()
 //EJECUTAR LA FUNCION
 module.exports = connectDB
