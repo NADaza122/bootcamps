@@ -15,7 +15,7 @@ const User = UserModel(sequelize, DataTypes)*/
 const connectDB = async()=>{
     try{
         await sequelize.authenticate()
-        console.log('La conexion se establecio correctamente :v' .bgBlue.white)
+        console.log('La conexion se establecio correctamente :V' .bgBlue.white)
         
         //SELECCIONAR TODOS LOS USUARIOS:
         /*const users = await User.findAll();
