@@ -60,7 +60,7 @@ router.route('/')
             .get(getUsers)
             .post(postUser)
 
-router.route('./:id')
+router.route('/:id')
             .get(getSinleUser)
             .put(putUser)
             .delete(deleteUser)
