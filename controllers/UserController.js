@@ -14,26 +14,57 @@ const User = UserModel(sequelize, DataTypes)
 //CREAR RUTAS ENDPOINTS URL 
 //get:obtender datos Read
 exports.getUsers = async (req, res) => {
-    const users = await User.findAll();
-    res.status(200).json(
-        {
-            //"!MENSAJE IMPORTANTE!" : `se trae todos los Users`
-            "sucess": true,
-            "data": users
-        }
-    )
+    try {
+        const users = await User.findAll();
+        res.status(200).json(
+            {
+                //"!MENSAJE IMPORTANTE!" : `se trae todos los Users`
+                "sucess": true,
+                "data": users
+            }
+        )
+    } catch (error) {
+        //ERRORES SERVIDOR
+        res
+           .status(500)
+           .json({
+            "sucess": false,
+            "errors": "error de servidor :b"
+           })
+    }
 }
 
 //OBTENER RECURSOS POR ID
 exports.getSinleUser = async (req, res) => {
-    const userId = await User.findByPk(req.params.id)
-    res.status(200).json(
-        {
-            //"!MENSAJE IMPORTANTE!" :  `users cuyo ID es: ${req.params.id}`
-            "sucess": true,
-            "data": userId
+    try {
+        const userId = await User.findByPk(req.params.id)
+        //SI EL USARIO NO EXISTE
+        if(!userId){
+            res.status(422).json(
+                {
+                    //"!MENSAJE IMPORTANTE!" :  `users cuyo ID es: ${req.params.id}`
+                    "sucess": true,
+                    "errors": ["!EL USUARIO QUE BUSCA NO EXISTE!"]
+                }
+            )
+        }else {
+            res.status(200).json(
+            {
+                //"!MENSAJE IMPORTANTE!" :  `users cuyo ID es: ${req.params.id}`
+                "sucess": true,
+                "errors": userId
+            }
+        )
         }
-    )
+    } catch (error) {
+        //ERRORES SERVIDOR
+        res
+           .status(500)
+           .json({
+            "sucess": false,
+            "errors": "error de servidor :b"
+           })
+    }
 }
 
 //POST:  CREAR UN NUEVO RECURSO
@@ -66,33 +97,56 @@ exports.postUser = async (req, res) => {
            .status(500)
            .json({
             "sucess": false,
-            "errors": "error servidor :b"
+            "errors": "error de servidor :b"
            })
+        }
     }
-
-  }
 }
 
 //PUT - PATCH: ACTUALIZAR
 exports.putUser = async (req, res) => {
-    await User.update(req.body, {
-        //ACTUALIZAR POR ID USER
-        where: {
-            id: req.params.id
-        }
-    });
+    try {
+        //consultar usuario existente
+        const upUser = await User.findByPk(req.params.id)
 
-    //consultar datos actualizados
-    const upUser = await User.findByPk(req.params.id)
+        if(!upUser){
+            //REPONSE USUARIO NO ENCONTRADO
+            res.status(422).json(
+                {
+                    //"!MENSAJE IMPORTANTE!" :  `users cuyo ID es: ${req.params.id}`
+                    "sucess": true,
+                    "errors": ["!EL USUARIO QUE BUSCA NO EXISTE!"]
+                }
+            )
+        }else{
+            await User.update(req.body, {
+                //ACTUALIZAR POR ID USER
+                where: {
+                    id: req.params.id
+                }
+            });
 
-    res.status(200).json(
-        {
-            // "!MENSAJE IMPORTANTE!" : `actualizar el user: ${req.params.id}`
-            "sucess": true,
-            "data": upUser
+            //SELECCIONAR USUARIO ACTUALIZADO
+            const userAct = await User.findByPk(req.params.id)
+            //RESPONSE CON USUARIO ACTUALIZADO
+            res.status(200).json(
+                {
+                    "sucess": true,
+                    "data": userAct
+                }
+            )
         }
-    )
-}
+    } catch (error) {
+        //ERRORES SERVIDOR
+        res
+           .status(500)
+           .json({
+            "sucess": false,
+            "errors": "error de servidor :b"
+           })
+        }
+    }
+
 
 //DELETE: ELIMINAR
 exports.deleteUser = async (req, res) => {
