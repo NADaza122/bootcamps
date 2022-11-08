@@ -1,8 +1,8 @@
-//OBJETO OCNEXION
+//OBJETO CONEXION
 const sequelize = require('../config/seq')
 
 //DATATYPES
-const { DataTypes } = require('sequelize')
+const { DataTypes, ValidationError } = require('sequelize')
 
 //MODELO
 const UserModel = require('../models/user')
@@ -48,7 +48,17 @@ exports.postUser = async (req, res) => {
             }
         )
     } catch (error){
-        console.log(error)
+        //MENSAJES DE ERRORES DE PUESTO EN UNA VARIABLE
+        const errores = error.errors.map((e)=>e.message)
+
+        //LLEVAR LOS ERRORES AL REPSONSE
+        res
+           .status(422)
+           .json({
+            "sucess": false,
+            "errors": errores
+           })
+        //console.log(error.errors[0].message)
     }
 
 }
