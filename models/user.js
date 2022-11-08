@@ -14,7 +14,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   User.init({
-    name: DataTypes.STRING,
+    //ELANZAR LOS ATRIBUTOS CON VALIDACIONES
+    name: {
+      type:DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isAlpha: true  // will only allow letters
+
+      }
+    },
     email: DataTypes.STRING,
     password: DataTypes.STRING
   }, {

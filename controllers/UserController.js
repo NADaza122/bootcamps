@@ -38,14 +38,19 @@ exports.getSinleUser = async (req, res) => {
 
 //POST:  CREAR UN NUEVO RECURSO
 exports.postUser = async (req, res) => {
-    const newUser = await User.create(req.body);
-    res.status(201).json(
-        {
-            //"!MENSAJE IMPORTANTE!" : `aqui se crea un nuevo user`
-            "sucess": true,
-            "data": newUser
-        }
-    )
+    try{
+        const newUser = await User.create(req.body);
+        res.status(201).json(
+            {
+                //"!MENSAJE IMPORTANTE!" : `aqui se crea un nuevo user`
+                "sucess": true,
+                "data": newUser
+            }
+        )
+    } catch (error){
+        console.log(error)
+    }
+
 }
 
 //PUT - PATCH: ACTUALIZAR
