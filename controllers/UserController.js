@@ -49,6 +49,7 @@ exports.postUser = async (req, res) => {
         )
     } catch (error){
         //MENSAJES DE ERRORES DE PUESTO EN UNA VARIABLE
+        if(error instanceof ValidationError){
         const errores = error.errors.map((e)=>e.message)
 
         //LLEVAR LOS ERRORES AL REPSONSE
@@ -59,8 +60,17 @@ exports.postUser = async (req, res) => {
             "errors": errores
            })
         //console.log(error.errors[0].message)
+    }else{
+        //ERRORES SERVIDOR
+        res
+           .status(500)
+           .json({
+            "sucess": false,
+            "errors": "error servidor :b"
+           })
     }
 
+  }
 }
 
 //PUT - PATCH: ACTUALIZAR
