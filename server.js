@@ -1,37 +1,44 @@
-const express = require('express')
-const dotenv = require('dotenv')
-const colors = require('colors')
-const listEnpoints = require('express-list-endpoints')
 
-//DEPENDENCIA CONEXION A LA DB
-const connectDB = require('./config/db')
-//DEPENDENCIAS A LAS RUTAS
-const bootcampRoutes = require('./routes/BootcampRoutes')
-const userRoutes = require('./routes/UserRoutes')
+const express=require('express')
+const dontenv=require('dotenv')
+const colors=require('colors')
+const listEndpoints=require('express-list-endpoints')
 
-//establecer el arcihvo de configuracion con variables de entorno del proyecto
-dotenv.config({
+
+//dependencia a connexion bd
+const connectDB= require('./config/db')
+
+//dependencias a las rutas
+const bootcampRoutes=require('./routes/BootcamRoutes')
+const userRoutes=require('./routes/userRoutes')
+const reviewsRoutes=require('./routes/reviewsRoutes')
+const coursesRoutes=require('./routes/coursesRoutes')
+const { connect } = require('./routes/BootcamRoutes')
+
+
+//ESTABLECER ARCHIVO DE CONFIGURACIÓN con variables de entorno del proyecto
+dontenv.config({
     path: './config_env/config.env'
 })
 
-//1. CREAR EL OBJETO QUE REPRESENTA EL SISTEMA QUE SE ESTA CREANDO
-const app = express()
+//1. Crear el objeto app
+const app=express()
 app.use(express.json())
 
-//EJEUCTAR LA CONEXION DE LA DB
+//ejecutar la conexion
 connectDB()
 
-//2. CREAR UNA RUTA DE PRUEBA
-/*app.get('/', (request, response)=>{
-    response.send('Ruta funcional ✌')
-})*/
+app.use('/api/v1/bootcamps', bootcampRoutes)
+app.use('/api/v1/users', userRoutes)
+app.use('/api/v1/cursos', coursesRoutes)
+app.use('/api/v1/reviews', reviewsRoutes)
 
-app.use("/api/v1/bootcamps", bootcampRoutes)
-app.use("/api/v1/users", userRoutes)
+console.log(listEndpoints(app))
 
-console.log(listEnpoints(app))
-
-//3. EJECUTAR EL SERVIDOR DEL DESARRROLLO DE EXPRESS
-app.listen( process.env.PORT, ()=>{
-    console.log(`SERVIDOR INICIADO EN PUERTO 😁: ${ process.env.PORT }`.bgMagenta)
+//crear rutas(endoint, uri) para los bootcamps
+//3. Ejecutar servidor de dearrollo de express
+//(voy a ejecutar un servidor y este va a escuchar por un puerto)
+app.listen(process.env.PORT, ()=>{
+    console.log(`Servidor iniciado en puerto: ${process.env.PORT}`.bgYellow.blue)
 })
+
